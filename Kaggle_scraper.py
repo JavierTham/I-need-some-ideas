@@ -23,10 +23,11 @@ api.authenticate()
     sort_by: if defined, sort results by this string (valid_list_sort_by)
 """
 
-def get_code(sort_by, page):
-    kernels = api.kernels_list(page = page, sort_by = sort_by, page_size = 2)
-    return kernels
+# function to get a list of kernels ("code" in Kaggle)
+def get_kernels(sort_by, page):
+    return api.kernels_list(page = page, sort_by = sort_by, page_size = 2)
 
+# get input (sort_by and page)
 sort_by, page = input().split(" ")
-code = get_code(sort_by, page)
+code = get_kernels(sort_by, page)
 print(code)
