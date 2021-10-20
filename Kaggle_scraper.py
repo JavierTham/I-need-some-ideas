@@ -1,5 +1,6 @@
 import kaggle
 from kaggle.api.kaggle_api_extended import KaggleApi
+import random
 
 api = KaggleApi()
 api.authenticate()
@@ -27,7 +28,19 @@ api.authenticate()
 def get_kernels(sort_by, page):
     return api.kernels_list(page = page, sort_by = sort_by, page_size = 2)
 
+# sclass SortBy:
+    # not sure if I should create an ENUM for the options
+    # {key: 0 for key in api.valid_list_sort_by}  
+
+# pick 1 random topic from list of 20
+def get_topic(sort_by, page):
+    lst_of_topics = get_kernels(sort_by, page)
+    topic_idx = random.randint(1, len(lst_of_topics) - 1)
+    return lst_of_topics[topic_idx]
+
 # get input (sort_by and page)
-sort_by, page = input().split(" ")
-code = get_kernels(sort_by, page)
-print(code)
+#sort_by, page = input().split(" ")
+#code = get_topic(sort_by, page)
+#print(code)
+
+# need to find way to get url
