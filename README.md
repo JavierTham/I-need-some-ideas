@@ -7,7 +7,9 @@ It might be difficult to think of topics for projects, or choose among the thous
 ## Solution
 Kaggle has many datasets to explore and well written code to learn from. I can pick a dataset/notebook randomly from there.
 
+<br/>
 
+<br/>
 
 ### Other problems/issues
 I had this thought that, rather than just pushing and documenting the completed working code, I should also document and record the challenges and thought processes I had while doing it.
