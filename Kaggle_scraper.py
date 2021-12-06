@@ -41,3 +41,7 @@ def get_topic(page):
 print(get_topic(1))
 
 
+# 1. get_topic() not modular enough
+# 2. need to find way to keep track of kernels already seen
+# 3. require another function to get kernels from new page
+# 4. require public functions for clients/users
