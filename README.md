@@ -26,3 +26,7 @@ This can help me to reflect on possible ways to improve my process and understan
 6/12/2020
 - Turns out that the retrieved kernels from `kernels_list()` were actually `Kernel` objects which can be found [here](kaggle/models/kaggle_models_extended.py)
 - We can retrieve the `ref` attribute of `Kernel` objects which can be appended behind the base url
+
+8/12/2020
+- Tried to encapsulate everything into a class `KernelList` so that I have a place to store the current selection
+- Python's innate mutability makes me feel that I'm not employing "good" OOP principles
