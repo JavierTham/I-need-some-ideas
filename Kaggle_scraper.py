@@ -23,25 +23,48 @@ api.authenticate()
     sort_by: if defined, sort results by this string (valid_list_sort_by)
 """
 
-# function to get a list of kernels ("code" in Kaggle)
-def get_kernels(page):
-    # restrict sorting to 1 category only as we only want the popular ones which would be well written 
-    return api.kernels_list(page = page, sort_by = 'hotness', page_size = 20)
-
-# pick 1 random topic from list of 20
-def get_topic(page):
-    kernels = get_kernels(page)
-    kernel_refs = [getattr(kernel, 'ref') for kernel in kernels]
-    kernel_titles = [getattr(kernel, 'title') for kernel in kernels]
-    kernel_dict = dict(zip(kernel_titles, kernel_refs))
-
-    topic_idx = random.randint(1, len(kernels) - 1)
-    return kernel_titles[topic_idx]
-
-print(get_topic(1))
-
-
 # 1. get_topic() not modular enough
 # 2. need to find way to keep track of kernels already seen
 # 3. require another function to get kernels from new page
 # 4. require public functions for clients/users
+
+class KernelList:
+    page = 1
+    sort_by = "hotness"
+    curr_selection = {}
+    kernel_titles = []
+
+    # function to get a list of kernels ("code" in Kaggle)
+    def get_kernels(self, page):
+        # restrict sorting to 1 category only as we only want the popular ones which would be well written 
+        kernels = api.kernels_list(page = page, sort_by = self.sort_by, page_size = 20)
+
+        # get the references
+        kernel_refs = [getattr(kernel, 'ref') for kernel in kernels]
+
+        # get the titles
+        self.kernel_titles = [getattr(kernel, 'title') for kernel in kernels]
+
+        # create a dictionary to store current selection of kernels
+        self.curr_selection = dict(zip(self.kernel_titles, kernel_refs))
+
+    # pick 1 random topic from list of 20
+    def get_topic(self):
+        # choose random kernel
+        topic_idx = random.randint(0, len(self.curr_selection) - 1)
+        kernel_title = self.kernel_titles[topic_idx]
+        
+        # remove from curr_selection
+        self.curr_selection.pop(kernel_title)
+        self.kernel_titles.remove(kernel_title)
+        return kernel_title
+
+KL = KernelList()
+KL.get_kernels(1)
+print(KL.get_topic())
+print(KL.get_topic())
+print(KL.get_topic())
+print(KL.get_topic())
+print(KL.get_topic())
+print(KL.get_topic())
+print(KL.get_topic())
